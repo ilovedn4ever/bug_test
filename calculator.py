@@ -1,0 +1,42 @@
+def add(a, b):
+    return a + b
+
+def subtract(a, b):
+    return a - b
+
+def multiply(a, b):
+    return a * b
+
+def divide(a, b):
+    # Bug 1: 未处理除数为0的情况
+    return a / b
+
+def power(a, b):
+    # Bug 2: 负数开偶次方时返回错误结果（数学上无实数解）
+    return a **b
+
+def calculate(operation, num1, num2):
+    # Bug 3: 未验证输入类型，字符串等非数字类型会导致崩溃
+    operations = {
+        'add': add,
+        'subtract': subtract,
+        'multiply': multiply,
+        'divide': divide,
+        'power': power
+    }
+    
+    # Bug 4: 未处理未知操作类型，直接调用会抛出KeyError
+    return operations[operation](num1, num2)
+
+if __name__ == "__main__":
+    # 测试用例（部分会触发bug）
+    print("加法测试:", calculate('add', 5, 3))  # 正常
+    print("减法测试:", calculate('subtract', 10, 4))  # 正常
+    print("乘法测试:", calculate('multiply', 7, 2))  # 正常
+    print("除法测试（正常）:", calculate('divide', 8, 2))  # 正常
+    print("除法测试（除零）:", calculate('divide', 5, 0))  # 触发Bug 1
+    print("幂运算测试（正常）:", calculate('power', 2, 3))  # 正常
+    print("幂运算测试（异常）:", calculate('power', -4, 0.5))  # 触发Bug 2
+    print("类型错误测试:", calculate('add', '5', 3))  # 触发Bug 3
+    print("未知操作测试:", calculate('mod', 10, 3))  # 触发Bug 4
+    
