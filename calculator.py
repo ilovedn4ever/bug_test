@@ -17,7 +17,12 @@ def power(a, b):
     return a **b
 
 def calculate(operation, num1, num2):
-    # Bug 3: 未验证输入类型，字符串等非数字类型会导致崩溃
+    # Input type validation
+    if not isinstance(num1, (int, float)):
+        raise TypeError(f"First operand must be a number (int or float), got {type(num1).__name__}")
+    if not isinstance(num2, (int, float)):
+        raise TypeError(f"Second operand must be a number (int or float), got {type(num2).__name__}")
+    
     operations = {
         'add': add,
         'subtract': subtract,
@@ -41,4 +46,5 @@ if __name__ == "__main__":
     print("类型错误测试:", calculate('add', '5', 3))  # 触发Bug 3
     print("未知操作测试:", calculate('mod', 10, 3))  # 触发Bug 4
     
+
 
