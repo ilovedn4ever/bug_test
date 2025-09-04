@@ -31,7 +31,10 @@ def calculate(operation, num1, num2):
         'power': power
     }
     
-    # Bug 4: 未处理未知操作类型，直接调用会抛出KeyError
+    # Check if operation exists before accessing
+    if operation not in operations:
+        raise ValueError(f"Unknown operation: '{operation}'. Supported operations are: {', '.join(operations.keys())}")
+    
     return operations[operation](num1, num2)
 
 if __name__ == "__main__":
@@ -46,5 +49,6 @@ if __name__ == "__main__":
     print("类型错误测试:", calculate('add', '5', 3))  # 触发Bug 3
     print("未知操作测试:", calculate('mod', 10, 3))  # 触发Bug 4
     
+
 
 
