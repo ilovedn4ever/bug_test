@@ -8,7 +8,8 @@ def multiply(a, b):
     return a * b
 
 def divide(a, b):
-    # Bug 1: 未处理除数为0的情况
+    if b == 0:
+        raise ValueError('Cannot divide by zero')
     return a / b
 
 def power(a, b):
@@ -40,3 +41,4 @@ if __name__ == "__main__":
     print("类型错误测试:", calculate('add', '5', 3))  # 触发Bug 3
     print("未知操作测试:", calculate('mod', 10, 3))  # 触发Bug 4
     
+
