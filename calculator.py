@@ -13,8 +13,10 @@ def divide(a, b):
     return a / b
 
 def power(a, b):
-    # Bug 2: 负数开偶次方时返回错误结果（数学上无实数解）
-    return a **b
+    # Validate mathematically invalid operations
+    if a < 0 and isinstance(b, float) and b != int(b):
+        raise ValueError(f"Cannot compute fractional power of negative number: ({a})^{b} has no real solution")
+    return a ** b
 
 def calculate(operation, num1, num2):
     # Input type validation
@@ -49,6 +51,7 @@ if __name__ == "__main__":
     print("类型错误测试:", calculate('add', '5', 3))  # 触发Bug 3
     print("未知操作测试:", calculate('mod', 10, 3))  # 触发Bug 4
     
+
 
 
 
